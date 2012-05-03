@@ -53,8 +53,6 @@ $string['certificatetype'] = 'Certificate Type';
 $string['certificatetype_help'] = 'This is where you determine the layout of the certificate. The certificate type folder includes four default certificates:
 A4 Embedded prints on A4 size paper with embedded font.
 A4 Non-Embedded prints on A4 size paper without embedded fonts.
-Letter Embedded prints on letter size paper with embedded font.
-Letter Non-Embedded prints on letter size paper without embedded fonts.
 
 The non-embedded types use the Helvetica and Times fonts.  If you feel your users will not have these fonts on their computer, or if your language uses characters or symbols that are not accommodated by the Helvetica and Times fonts, then choose an embedded type.  The embedded types use the Dejavusans and Dejavuserif fonts.  This will make the pdf files rather large; thus it is not recommended to use an embedded type unless you must.
 
