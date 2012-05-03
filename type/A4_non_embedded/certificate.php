@@ -95,12 +95,27 @@ $pdf->AddPage();
 if ($certificate->orientation == 'L') {
     $x = 10;
     $y = 30;
-    $sealx = 230;
-    $sealy = 150;
+    if ($certificate->printseal == 'College logo.png') {
+        $sealx = 185;
+        $sealy = 160;
+        $sealh = 12;
+    } else if ($certificate->printseal == 'CLE logo.png') {
+        $sealx = 210;
+        $sealy = 155;
+        $sealh = 20;
+    } else if ($certificate->printseal == 'CLE + SARAD logos.png') {
+        $sealx = 195;
+        $sealy = 155;
+        $sealh = 20;
+    } else {
+        $sealx = 230;
+        $sealy = 150;
+        $sealh = '';
+    }
     $sigx = 47;
-    $sigy = 155;
+    $sigy = 160;
     $custx = 47;
-    $custy = 155;
+    $custy = 160;
     $wmarkx = 40;
     $wmarky = 31;
     $wmarkw = 212;
@@ -113,8 +128,23 @@ if ($certificate->orientation == 'L') {
 } else { // Portrait
     $x = 10;
     $y = 40;
-    $sealx = 150;
-    $sealy = 220;
+    if ($certificate->printseal == 'College logo.png') {
+        $sealx = 120;
+        $sealy = 230;
+        $sealh = 10;
+    } else if ($certificate->printseal == 'CLE logo.png') {
+        $sealx = 130;
+        $sealy = 225;
+        $sealh = 18;
+    } else if ($certificate->printseal == 'CLE + SARAD logos.png') {
+        $sealx = 115;
+        $sealy = 225;
+        $sealh = 18;
+    } else {
+        $sealx = 150;
+        $sealy = 220;
+        $sealh = '';
+    }
     $sigx = 30;
     $sigy = 230;
     $custx = 30;
@@ -137,7 +167,7 @@ draw_frame($pdf, $certificate);
 $pdf->SetAlpha(0.2);
 print_watermark($pdf, $certificate, $wmarkx, $wmarky, $wmarkw, $wmarkh);
 $pdf->SetAlpha(1);
-print_seal($pdf, $certificate, $sealx, $sealy, '', '');
+print_seal($pdf, $certificate, $sealx, $sealy, '', $sealh);
 print_signature($pdf, $certificate, $sigx, $sigy, '', '');
 
 // Add text
