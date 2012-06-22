@@ -501,7 +501,6 @@ function certificate_email_student($course, $certificate, $certrecord, $context)
     $attachment = 'filedir/'.certificate_path_from_hash($filepathname).'/'.$filepathname;
     $attachname = $filename;
 
-    $DB->set_field('certificate_issues', 'mailed', '1', array('certificateid'=> $certificate->id, 'userid'=> $USER->id));
     return email_to_user($USER, $from, $subject, $message, $messagehtml, $attachment, $attachname);
 }
 
@@ -696,21 +695,21 @@ function certificate_get_issues($certificateid, $sort="ci.timecreated ASC", $gro
     $certmanagers = get_users_by_capability($context, 'mod/certificate:manage', 'u.id');
 
     $limitsql = '';
-    $page = (int)$page;
-    $perpage = (int)$perpage;
+    $page = (int) $page;
+    $perpage = (int) $perpage;
 
     // Setup pagination - when both $page and $perpage = 0, get all results
     if ($page || $perpage) {
-	    if ($page < 0) {
-	    	$page = 0;
-	    }
+        if ($page < 0) {
+            $page = 0;
+        }
 
-	    if ($perpage > CERT_MAX_PER_PAGE) {
-	    	$perpage = CERT_MAX_PER_PAGE;
-	    } else if ($perpage < 1) {
-	    	$perpage = CERT_PER_PAGE;
-	    }
-	    $limitsql = " LIMIT $perpage" . " OFFSET " . $page * $perpage ;
+        if ($perpage > CERT_MAX_PER_PAGE) {
+            $perpage = CERT_MAX_PER_PAGE;
+        } else if ($perpage < 1) {
+            $perpage = CERT_PER_PAGE;
+        }
+        $limitsql = " LIMIT $perpage" . " OFFSET " . $page * $perpage ;
     }
 
     // Get all the users that have certificates issued, should only be one issue per user for a certificate
