@@ -29,13 +29,13 @@ require_once($CFG->dirroot.'/grade/lib.php');
 require_once($CFG->dirroot.'/grade/querylib.php');
 
 
-/** The watermark type images */
+/** The border image folder */
 define('CERT_IMAGE_BORDER', 'borders');
-/** The watermark type images */
+/** The watermark image folder */
 define('CERT_IMAGE_WATERMARK', 'watermarks');
-/** The watermark type images */
+/** The signature image folder */
 define('CERT_IMAGE_SIGNATURE', 'signatures');
-/** The watermark type images */
+/** The seal image folder */
 define('CERT_IMAGE_SEAL', 'seals');
 
 define('CERT_PER_PAGE', 30);
@@ -742,8 +742,8 @@ function certificate_get_issues($certificateid, $sort="ci.timecreated ASC", $gro
             if (empty($groupusers)) {
                 return array();
             }
-            foreach($groupusers as $id => $gpuser) {
-                if (!isset($users[$id])) {
+            foreach($users as $id => $unused) {
+                if (!isset($groupusers[$id])) {
                     //remove this user as it isn't in the group!
                     unset($users[$id]);
                 }
