@@ -49,7 +49,8 @@ define('CERT_MAX_PER_PAGE', 200);
 function certificate_add_instance($certificate) {
     global $DB;
 
-    $certificate->timemodified = time();
+    $certificate->timecreated = time();
+    $certificate->timemodified = $certificate->timecreated;
 
     if ($certificateid = $DB->insert_record('certificate', $certificate)) {
         $event = new stdClass;
@@ -373,7 +374,7 @@ function certificate_email_teachers($course, $certificate, $certrecord, $cm) {
             $info->course = format_string($course->fullname,true);
             $info->certificate = format_string($certificate->name,true);
             $info->url = $CFG->wwwroot.'/mod/certificate/report.php?id='.$cm->id;
-            $from = $student;
+            $from = $USER;
             $postsubject = $strawarded . ': ' . $info->student . ' -> ' . $certificate->name;
             $posttext = certificate_email_teachers_text($info);
             $posthtml = ($teacher->mailformat == 1) ? certificate_email_teachers_html($info) : '';
@@ -411,7 +412,7 @@ function certificate_email_others($course, $certificate, $certrecord, $cm) {
                     $info->course = format_string($course->fullname, true);
                     $info->certificate = format_string($certificate->name, true);
                     $info->url = $CFG->wwwroot.'/mod/certificate/report.php?id='.$cm->id;
-                    $from = $student;
+                    $from = $USER;
                     $postsubject = $strawarded . ': ' . $info->student . ' -> ' . $certificate->name;
                     $posttext = certificate_email_teachers_text($info);
                     $posthtml = certificate_email_teachers_html($info);
@@ -490,7 +491,10 @@ function certificate_email_student($course, $certificate, $certrecord, $context)
 
     // Make the HTML version more XHTML happy  (&amp;)
     $messagehtml = text_to_html(get_string('emailstudenttext', 'certificate', $info));
-    $filename = clean_filename($certificate->name.'.pdf');
+
+    // Remove full-stop at the end if it exists, to avoid "..pdf" being created and being filtered by clean_filename
+    $certname = rtrim($certificate->name, '.');
+    $filename = clean_filename("$certname.pdf");
 
     // Get hashed pathname
     $fs = get_file_storage();
