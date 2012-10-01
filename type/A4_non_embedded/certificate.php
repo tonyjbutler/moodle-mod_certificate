@@ -42,9 +42,9 @@ if ($certificate->orientation == 'L') {
     $x = 10;
     $y = 30;
     if ($certificate->printseal == 'College logo.png') {
-        $sealx = 185;
-        $sealy = 160;
-        $sealh = 12;
+        $sealx = 210;
+        $sealy = 155;
+        $sealh = 20;
     } else if ($certificate->printseal == 'CLE logo.png') {
         $sealx = 210;
         $sealy = 155;
@@ -75,9 +75,9 @@ if ($certificate->orientation == 'L') {
     $x = 10;
     $y = 40;
     if ($certificate->printseal == 'College logo.png') {
-        $sealx = 120;
-        $sealy = 230;
-        $sealh = 10;
+        $sealx = 130;
+        $sealy = 225;
+        $sealh = 18;
     } else if ($certificate->printseal == 'CLE logo.png') {
         $sealx = 130;
         $sealy = 225;
